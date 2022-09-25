@@ -1,9 +1,11 @@
-import SongSaver from './app/store/SongSaver';
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <>
-      <SongSaver />
+      <Navbar />
+      <Outlet />
     </>
   );
 }

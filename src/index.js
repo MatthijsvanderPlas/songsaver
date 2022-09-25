@@ -4,23 +4,23 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import store from './app/store/store';
 import { Provider } from 'react-redux';
 import App from './App';
-import Navbar from './components/Navbar';
+import SongSaver from './app/store/SongSaver';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navbar />,
+    element: <App />,
     errorElement: <div>Something went wrong!</div>,
     children: [
       {
-        path: '/App',
-        element: <App />
+        path: '/',
+        element: <SongSaver />
+      },
+      {
+        path: 'about',
+        element: <div>About Page!</div>
       }
     ]
-  },
-  {
-    path: 'about',
-    element: <div>About this app page!</div>
   }
 ]);
 
@@ -28,7 +28,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Navbar />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
