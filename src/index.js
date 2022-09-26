@@ -4,7 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import store from './app/store/store';
 import { Provider } from 'react-redux';
 import App from './App';
-import SongSaver from './app/store/SongSaver';
+import SongSaver from './app/store/Feature/SongSaver/SongSaver';
+
+import '../node_modules/bulma/css/bulma.min.css';
+import About from './components/About';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'about',
-        element: <div>About Page!</div>
+        element: <About />
       }
     ]
   }

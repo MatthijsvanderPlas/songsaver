@@ -12,7 +12,7 @@ const songsaverSlice = createSlice({
       state.songs = [...state.songs, action.payload];
     },
     removesong: (state, action) => {
-      const newState = state.songs.filter((song) => song.key !== action.payload.key);
+      const newState = state.songs.filter((song) => song.id !== action.payload.id);
       state.songs = [...newState];
     }
   }
