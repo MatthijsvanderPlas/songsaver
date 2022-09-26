@@ -71,7 +71,7 @@ export default function InputForm({ addSong }) {
                     <option>Rock</option>
                     <option>Jazz</option>
                     <option>Pop</option>
-                    <option>Beethoven</option>
+                    <option>Classic</option>
                   </select>
                 </div>
               </div>

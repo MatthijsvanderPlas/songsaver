@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="tabs is-centered is-medium">
+      <div style={{ backgroundColor: '#eee' }} className="tabs is-centered is-medium">
         <ul>
           <li id="home" className={home}>
             <Link className="is-link" to="/">
