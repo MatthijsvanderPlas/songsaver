@@ -1,13 +1,13 @@
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Filters from '../app/store/Feature/Filter/Filters';
 
 export default function SongList({ songs, removeSong }) {
-  const [filter, setFilter] = useState(false);
+  const filter = useSelector((state) => state.filters.filters);
   let filteredSongs = songs;
 
-  if (filter) {
-    filteredSongs = songs.filter((song) => song.genre === 'Classic');
+  if (filter.length > 0) {
+    filteredSongs = songs.filter((song) => filter.includes(song.genre));
   }
 
   const standard = filteredSongs.map((song, idx) => {
@@ -25,13 +25,9 @@ export default function SongList({ songs, removeSong }) {
     );
   });
 
-  const handleFilter = (props) => {
-    setFilter(!filter);
-  };
-
   return (
     <>
-      <Filters handleFilter={handleFilter} />
+      {songs.length > 0 ? <Filters /> : null}
       <div
         style={{ maxWidth: '60rem', margin: '0 auto', marginTop: '3rem' }}
         className="columns is-centered box"
