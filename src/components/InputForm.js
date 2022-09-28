@@ -25,9 +25,9 @@ export default function InputForm({ addSong }) {
     formRef.current.reset();
   };
   return (
-    <div className="columns is-centered">
+    <div className="columns is-12 is-centered">
       <div className="column is-half">
-        <form className="tile is-ancestor is-12" onSubmit={handleSubmit} ref={formRef}>
+        <form className="tile is-ancestor" onSubmit={handleSubmit} ref={formRef}>
           <div className="tile is-parent is-3">
             <div className="field">
               <label className="label" htmlFor="song">
@@ -51,7 +51,7 @@ export default function InputForm({ addSong }) {
               </label>
               <div className="control">
                 <input
-                  className="tile is-child input is-one-quarter"
+                  className="tile is-child input"
                   ref={artistInput}
                   name="artist"
                   placeholder="Artist"

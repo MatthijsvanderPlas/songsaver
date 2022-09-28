@@ -5,9 +5,9 @@ import store from './app/store/store';
 import { Provider } from 'react-redux';
 import App from './App';
 import SongSaver from './app/store/Feature/SongSaver/SongSaver';
+import About from './components/About';
 
 import '../node_modules/bulma/css/bulma.min.css';
-import About from './components/About';
 
 const router = createBrowserRouter([
   {

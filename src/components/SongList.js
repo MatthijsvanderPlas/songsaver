@@ -1,10 +1,11 @@
 import { PropTypes } from 'prop-types';
 import { useState } from 'react';
-import Filters from './Filters';
+import Filters from '../app/store/Feature/Filter/Filters';
 
 export default function SongList({ songs, removeSong }) {
   const [filter, setFilter] = useState(false);
   let filteredSongs = songs;
+
   if (filter) {
     filteredSongs = songs.filter((song) => song.genre === 'Classic');
   }
