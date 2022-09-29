@@ -4,13 +4,39 @@ import Filters from '../app/store/Feature/Filter/Filters';
 
 export default function SongList({ songs, removeSong }) {
   const filter = useSelector((state) => state.filters.filters);
-  let filteredSongs = songs;
+  const sort = useSelector((state) => state.sort.sort);
+  let filteredSongs;
+  let sortedSongs;
+  let derivedSongs = songs;
 
   if (filter.length > 0) {
     filteredSongs = songs.filter((song) => filter.includes(song.genre));
   }
 
-  const standard = filteredSongs.map((song, idx) => {
+  if (sort && songs.length > 0) {
+    let localSongsList = songs;
+    if (filteredSongs) localSongsList = filteredSongs;
+
+    if (sort.direction === 'ascending') {
+      sortedSongs = localSongsList
+        .slice()
+        .sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
+    }
+    if (sort.direction === 'descending') {
+      sortedSongs = localSongsList
+        .slice()
+        .sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
+    }
+  }
+
+  if (filteredSongs) {
+    derivedSongs = filteredSongs;
+  }
+  if (sortedSongs) {
+    derivedSongs = sortedSongs;
+  }
+
+  const standard = derivedSongs.map((song, idx) => {
     return (
       <tr key={song.id}>
         <th>{idx + 1}</th>
@@ -27,7 +53,7 @@ export default function SongList({ songs, removeSong }) {
 
   return (
     <>
-      {songs.length > 0 ? <Filters /> : null}
+      <Filters />
       <div
         style={{ maxWidth: '60rem', margin: '0 auto', marginTop: '3rem' }}
         className="columns is-centered box"
