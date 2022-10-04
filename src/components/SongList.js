@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
-import Filters from '../app/store/Feature/Filter/Filters';
+import Filters from './Filters';
 
 export default function SongList({ songs, removeSong }) {
   const filter = useSelector((state) => state.filters.filters);

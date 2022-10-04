@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import Checkbox from '../../../../components/Checkbox';
-import { addsort } from '../Sort/SortSlice';
-import { addfilter, removefilter } from './FilterSlice';
+import Checkbox from './Checkbox';
+import { addsort } from '../app/store/Feature/Sort/SortSlice';
+import { addfilter, removefilter } from '../app/store/Feature/Filter/FilterSlice';
 
 export default function Filters() {
   const filter = useSelector((state) => state.filters.filters);

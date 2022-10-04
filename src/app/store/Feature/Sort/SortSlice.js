@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  sort: { column: 'song', direction: 'descending' }
+  sort: {}
 };
 
 const SortSlice = createSlice({

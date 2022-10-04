@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addsong, removesong } from './songsaverSlice';
-import InputForm from '../../../../components/InputForm';
-import SongList from '../../../../components/SongList';
+import { addsong, removesong } from '../app/store/Feature/SongSaver/songsaverSlice';
+import InputForm from './InputForm';
+import SongList from './SongList';
 
 export default function SongSaver() {
   const songs = useSelector((state) => state.songsaver.songs);
