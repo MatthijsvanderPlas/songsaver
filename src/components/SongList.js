@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Filters from './Filters';
 import Song from './Song';
+import styles from './songlist.module.css';
 
 export default function SongList({ songs, removeSong }) {
   const filter = useSelector((state) => state.filters.filters);
@@ -49,10 +50,7 @@ export default function SongList({ songs, removeSong }) {
   return (
     <>
       <Filters />
-      <div
-        style={{ maxWidth: '60rem', margin: '0 auto', marginTop: '3rem' }}
-        className="columns is-centered box"
-      >
+      <div className={`columns is-centered box ${styles.module__box}`}>
         {songs.length > 0 ? (
           <table className="table is-striped is-fullwidth is-hoverable">
             <thead>

@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { useRef } from 'react';
 import uuid from 'react-uuid';
+import styles from './inputform.module.css';
 
 export default function InputForm({ addSong }) {
   const songInput = useRef();
@@ -8,10 +9,6 @@ export default function InputForm({ addSong }) {
   const genreInput = useRef();
   const starInput = useRef();
   const formRef = useRef();
-
-  const button = {
-    marginTop: '32px'
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,8 +22,8 @@ export default function InputForm({ addSong }) {
     formRef.current.reset();
   };
   return (
-    <div className="columns is-12 is-centered">
-      <div className="column is-half">
+    <div className={`columns is-12 is-centered ${styles.module__box}`}>
+      <div className="column box">
         <form className="tile is-ancestor" onSubmit={handleSubmit} ref={formRef}>
           <div className="tile is-parent is-3">
             <div className="field">
@@ -99,9 +96,7 @@ export default function InputForm({ addSong }) {
           <div className="tile is-parent is-1">
             <div className="field">
               <div className="control">
-                <button style={button} className="button is-link id-medium">
-                  Add Song
-                </button>
+                <button className={`${styles.button} button is-link id-medium`}>Add Song</button>
               </div>
             </div>
           </div>

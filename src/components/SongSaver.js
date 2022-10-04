@@ -16,7 +16,7 @@ export default function SongSaver() {
   };
 
   return (
-    <div style={{ padding: '.5rem' }}>
+    <div>
       <InputForm addSong={addSongOnSubmit} />
       <SongList songs={songs} removeSong={removeSongOnClick} />
     </div>
