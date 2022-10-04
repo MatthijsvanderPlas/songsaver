@@ -9,11 +9,7 @@ export default function SongList({ songs, removeSong }) {
   const filter = useSelector((state) => state.filters.filters);
   const sort = useSelector((state) => state.sort.sort);
 
-  const [standard, setStandard] = useState(
-    songs.map((song, idx) => {
-      return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
-    })
-  );
+  const [standard, setStandard] = useState();
 
   useEffect(() => {
     if (filter.length > 0) {
@@ -30,22 +26,25 @@ export default function SongList({ songs, removeSong }) {
         })
       );
     }
-  }, [filter]);
+  }, [filter, songs]);
 
   useEffect(() => {
-    let sortedSongs = [];
-    if (sort.direction === 'ascending') {
-      sortedSongs = songs.slice().sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
+    if (sort.length > 0) {
+      let sortedSongs = standard;
+      if (sort.direction === 'ascending') {
+        sortedSongs = songs.slice().sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
+      }
+      if (sort.direction === 'descending') {
+        sortedSongs = songs.slice().sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
+      }
+
+      setStandard(
+        sortedSongs.map((song, idx) => {
+          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+        })
+      );
     }
-    if (sort.direction === 'descending') {
-      sortedSongs = songs.slice().sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
-    }
-    setStandard(
-      sortedSongs.map((song, idx) => {
-        return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
-      })
-    );
-  }, [sort]);
+  }, [sort, songs]);
 
   return (
     <>
