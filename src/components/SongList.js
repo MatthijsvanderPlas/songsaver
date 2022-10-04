@@ -1,55 +1,50 @@
 import { PropTypes } from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Filters from './Filters';
+import Song from './Song';
 
 export default function SongList({ songs, removeSong }) {
   const filter = useSelector((state) => state.filters.filters);
   const sort = useSelector((state) => state.sort.sort);
-  let filteredSongs;
-  let sortedSongs;
-  let derivedSongs = songs;
 
-  if (filter.length > 0) {
-    filteredSongs = songs.filter((song) => filter.includes(song.genre));
-  }
+  const [standard, setStandard] = useState(
+    songs.map((song, idx) => {
+      return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+    })
+  );
 
-  if (sort && songs.length > 0) {
-    let localSongsList = songs;
-    if (filteredSongs) localSongsList = filteredSongs;
+  useEffect(() => {
+    if (filter.length > 0) {
+      const filteredSongs = songs.filter((song) => filter.includes(song.genre));
+      setStandard(
+        filteredSongs.map((song, idx) => {
+          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+        })
+      );
+    } else {
+      setStandard(
+        songs.map((song, idx) => {
+          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+        })
+      );
+    }
+  }, [filter]);
 
+  useEffect(() => {
+    let sortedSongs = [];
     if (sort.direction === 'ascending') {
-      sortedSongs = localSongsList
-        .slice()
-        .sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
+      sortedSongs = songs.slice().sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
     }
     if (sort.direction === 'descending') {
-      sortedSongs = localSongsList
-        .slice()
-        .sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
+      sortedSongs = songs.slice().sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
     }
-  }
-
-  if (filteredSongs) {
-    derivedSongs = filteredSongs;
-  }
-  if (sortedSongs) {
-    derivedSongs = sortedSongs;
-  }
-
-  const standard = derivedSongs.map((song, idx) => {
-    return (
-      <tr key={song.id}>
-        <th>{idx + 1}</th>
-        <td>{song.song}</td>
-        <td>{song.artist}</td>
-        <td>{song.genre}</td>
-        <td>{song.stars}</td>
-        <td>
-          <button className="delete" onClick={() => removeSong(song.id)}></button>
-        </td>
-      </tr>
+    setStandard(
+      sortedSongs.map((song, idx) => {
+        return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+      })
     );
-  });
+  }, [sort]);
 
   return (
     <>
