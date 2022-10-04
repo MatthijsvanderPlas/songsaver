@@ -35,20 +35,21 @@ export default function Filters() {
           <Checkbox name="Pop" addNewFilter={addNewFilter} />
           <Checkbox name="Classic" addNewFilter={addNewFilter} />
         </div>
-        <div className="tile is-parent is- 12">
-          <label className="tile label is-child is-4">Asc/Desc Column</label>
-          <select
-            style={{ width: '400px' }}
-            className="select tile is-child is-6"
-            onChange={sortSongs}
-          >
-            <option value="song ascending">Song A-&gt;Z</option>
-            <option value="song descending">Song Z-&gt;A</option>
-            <option value="artist ascending">Artist A-&gt;Z</option>
-            <option value="artist descending">Artist Z-&gt;A</option>
-            <option value="stars ascending">Stars 1-&gt;5</option>
-            <option value="stars descending">Stars 5-&gt;1</option>
-          </select>
+        <div className="tile columns is-parent is-12 is-vcentered">
+          <label className="tile label is-child is-3">Asc/Desc Column</label>
+          <div className="select is-normal is-5">
+            <select onChange={sortSongs} defaultValue="default">
+              <option value="default" disabled hidden>
+                Choose one
+              </option>
+              <option value="song ascending">Song A-&gt;Z</option>
+              <option value="song descending">Song Z-&gt;A</option>
+              <option value="artist ascending">Artist A-&gt;Z</option>
+              <option value="artist descending">Artist Z-&gt;A</option>
+              <option value="stars ascending">Stars 1-&gt;5</option>
+              <option value="stars descending">Stars 5-&gt;1</option>
+            </select>
+          </div>
         </div>
       </form>
     </div>
