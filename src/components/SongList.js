@@ -28,10 +28,8 @@ export default function SongList({ songs, removeSong }) {
     let derivedSongs = songs || [];
 
     if (sort && filter.length > 0) {
-      console.log('both sort and filter');
       derivedSongs = sortFunction(sort, filterFunction(songs));
     } else if (Object.keys(sort).length !== 0) {
-      console.log(`only sort`);
       derivedSongs = sortFunction(sort, songs);
     }
 
