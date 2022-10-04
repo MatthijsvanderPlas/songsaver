@@ -11,40 +11,36 @@ export default function SongList({ songs, removeSong }) {
 
   const [standard, setStandard] = useState();
 
-  useEffect(() => {
-    if (filter.length > 0) {
-      const filteredSongs = songs.filter((song) => filter.includes(song.genre));
-      setStandard(
-        filteredSongs.map((song, idx) => {
-          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
-        })
-      );
-    } else {
-      setStandard(
-        songs.map((song, idx) => {
-          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
-        })
-      );
+  const filterFunction = (array) => {
+    return array.filter((song) => filter.includes(song.genre));
+  };
+
+  const sortFunction = (obj, array) => {
+    if (obj.direction === 'ascending') {
+      return array.slice().sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
     }
-  }, [filter, songs]);
+    if (obj.direction === 'descending') {
+      return array.slice().sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
+    }
+  };
 
   useEffect(() => {
-    if (sort.length > 0) {
-      let sortedSongs = standard;
-      if (sort.direction === 'ascending') {
-        sortedSongs = songs.slice().sort((a, b) => (a[sort.column] > b[sort.column] ? 1 : -1));
-      }
-      if (sort.direction === 'descending') {
-        sortedSongs = songs.slice().sort((a, b) => (a[sort.column] < b[sort.column] ? 1 : -1));
-      }
+    let derivedSongs = songs;
 
-      setStandard(
-        sortedSongs.map((song, idx) => {
-          return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
-        })
-      );
+    if (sort && filter.length > 0) {
+      derivedSongs = sortFunction(sort, filterFunction(songs));
+    } else if (filter.length > 0) {
+      derivedSongs = filterFunction(songs);
+    } else if (sort) {
+      derivedSongs = sortFunction(sort, songs);
     }
-  }, [sort, songs]);
+
+    setStandard(
+      derivedSongs.map((song, idx) => {
+        return <Song key={song.id} song={song} idx={idx} removeSong={removeSong} />;
+      })
+    );
+  }, [sort, filter, songs]);
 
   return (
     <>
