@@ -25,10 +25,12 @@ export default function SongList({ songs, removeSong }) {
   };
 
   useEffect(() => {
-    let derivedSongs = songs || [];
+    let derivedSongs = songs;
 
-    if (sort && filter.length > 0) {
+    if (Object.keys(sort).length !== 0 && filter.length > 0) {
       derivedSongs = sortFunction(sort, filterFunction(songs));
+    } else if (filter.length > 0) {
+      derivedSongs = filterFunction(songs);
     } else if (Object.keys(sort).length !== 0) {
       derivedSongs = sortFunction(sort, songs);
     }
